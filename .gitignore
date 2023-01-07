@@ -1,0 +1,6 @@
+build/
+.ticks_history.txt
+*.o
+*.map
+*.def
+*.8xv
