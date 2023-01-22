@@ -1,6 +1,4 @@
 #editorconfig.org
-#I used eclint to clean up this project, but don't install it into the project!
-#It's very easy to do it wrong and accidentally lint your git index!
 root = true
 
 [*]

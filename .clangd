@@ -1,0 +1,4 @@
+CompileFlags:
+    Add:
+        - "-I=C:/z88dk/bin"
+        - "-I=/snap/z88dk/current/share/z88dk/include"

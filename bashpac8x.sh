@@ -46,10 +46,6 @@ while [[ "$1" =~ -- ]] ; do
     shift
 done
 
-TYPE_BYTE=$(make_hex $TYPE)
-VERSION_BYTE=$(make_hex $VERSION)
-ARCHIVE_BYTE=$(make_hex $ARCHIVE)
-
 INPUT_FILE="$1"
 if [[ ! -e "$INPUT_FILE" ]] ; then
     >&2 echo "File doesn't exist: $INPUT_FILE"
@@ -58,7 +54,9 @@ fi
 
 INPUT_FILENAME="$(basename "${INPUT_FILE%.*}")"
 
-BINSIZE=$(cat "$INPUT_FILE" | wc --bytes)
+BINDATA="$(cat "$INPUT_FILE" | xxd -ps | tr -d '\n')"
+
+BINSIZE=$(($(echo -ne "$BINDATA" | wc --bytes) / 2))
 BINSIZE_LITTLE=$(make_little $BINSIZE)
 
 NAME="$(printf "%.8s" "${2:-${INPUT_FILENAME}}")"
@@ -68,7 +66,7 @@ NAME_HEX="$(printf "%-16s" "$(echo -ne "$NAME" | xxd -ps)" | tr ' ' 0)"
 COMMENT="github.com/empathicqubit/ti8xp-c-template "
 COMMENT_HEX=$(echo -ne "$COMMENT" | xxd -ps)
 
-VARDATA="$BINSIZE_LITTLE $(cat "$INPUT_FILE" | xxd -ps)"
+VARDATA="$BINSIZE_LITTLE $BINDATA"
 VARSIZE=$((BINSIZE+2))
 
 VARSIZE_LITTLE=$(make_little $VARSIZE)
@@ -80,7 +78,7 @@ fi
 
 VARRECORD_SIZE_LITTLE=$(make_little $VARRECORD_SIZE)
 
-FILE_SUM=$({ echo -ne "$BINSIZE_LITTLE" | xxd -r -ps ; cat "$INPUT_FILE" ; } | bytesum)
+VARDATA_SUM=$(echo -ne "$VARDATA" | bytesum)
 NAME_SUM=$(echo -ne "$NAME" | bytesum)
 
 VARHEADER_SIZE=13
@@ -91,9 +89,13 @@ VARHEADER_SIZE_HI=$((VARHEADER_SIZE >> 8))
 VARSIZE_LO=$((VARSIZE & 0xff))
 VARSIZE_HI=$((VARSIZE >> 8))
 
+TYPE_BYTE=$(make_hex $TYPE)
+VERSION_BYTE=$(make_hex $VERSION)
+ARCHIVE_BYTE=$(make_hex $ARCHIVE)
+
 HEADER_SUM=$((2*VARSIZE_LO + 2*VARSIZE_HI + TYPE + VERSION + ARCHIVE + VARHEADER_SIZE_LO + VARHEADER_SIZE_HI))
 
-SUM=$(((HEADER_SUM + NAME_SUM + FILE_SUM) % 65536))
+SUM=$(((HEADER_SUM + NAME_SUM + VARDATA_SUM) % 65536))
 SUM_LITTLE=$(make_little $SUM)
 
 FILE_HEADER="$(echo -ne "**TI83F*" | xxd -ps)"

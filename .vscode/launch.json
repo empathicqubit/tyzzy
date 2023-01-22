@@ -4,24 +4,77 @@
         {
             "type": "gdb",
             "request": "attach",
-            "name": "Attach (Run TI Bridge task first!)",
-            "target": "127.0.0.1:${input:port}",
+            "name": "Attach to Emulator (app)",
+            "target": "${input:address}",
             "remote": true,
             "cwd": "${workspaceFolder}",
-            "gdbpath": "/home/empathicqubit/z88dk/bin/z88dk-gdb",
+            "gdbpath": "z88dk-gdb",
+            "stopAtConnect": false,
+            "debugger_args": [
+                "-x",
+                "${workspaceFolder}/build/program.map",
+                "--interpreter=mi2"
+            ],
+            "autorun": [
+                "break _main"
+            ],
+            "preLaunchTask": "start-emu"
+        },
+        {
+            "type": "gdb",
+            "request": "attach",
+            "name": "Attach to Emulator (tests)",
+            "target": "${input:address}",
+            "remote": true,
+            "cwd": "${workspaceFolder}",
+            "gdbpath": "z88dk-gdb",
+            "stopAtConnect": false,
+            "debugger_args": [
+                "-x",
+                "${workspaceFolder}/build/tests.map",
+                "--interpreter=mi2"
+            ],
+            "autorun": [
+                "break _main"
+            ],
+            "preLaunchTask": "test-start-emu"
+        },
+        {
+            "type": "gdb",
+            "request": "attach",
+            "name": "Attach (Run TI Bridge task first!)",
+            "target": "${input:address}",
+            "remote": true,
+            "cwd": "${workspaceFolder}",
+            "gdbpath": "z88dk-gdb",
             "stopAtConnect": true,
             "debugger_args": [
                 "-x",
-                "${workspaceFolder}/build/program.map"
+                "${workspaceFolder}/build/program.map",
+                "--interpreter=mi2"
             ],
-            "showDevDebugOutput": true,
+        },
+        {
+            "type": "gdb",
+            "request": "attach",
+            "name": "Test Attach (Run TI Bridge task first!)",
+            "target": "${input:address}",
+            "remote": true,
+            "cwd": "${workspaceFolder}",
+            "gdbpath": "z88dk-gdb",
+            "stopAtConnect": true,
+            "debugger_args": [
+                "-x",
+                "${workspaceFolder}/build/tests.map",
+                "--interpreter=mi2"
+            ],
         }
     ],
     "inputs": [
         {
-            "id": "port",
-            "description": "Enter the port number",
-            "default": "8998",
+            "id": "address",
+            "description": "Enter the IP address:port",
+            "default": "127.0.0.1:8998",
             "type": "promptString",
         }
     ]

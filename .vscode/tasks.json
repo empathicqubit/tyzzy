@@ -10,6 +10,32 @@
     ],
 	"tasks": [
       {
+          "label": "start-emu",
+          "detail": "Launch emulator (app)",
+          "command": "make",
+          "args": ["start-emu"],
+          "options": {
+            "env": {
+              "TIBRIDGE_PORT": "${input:port}"
+            }
+          },
+
+          "type": "shell"
+      },
+      {
+          "label": "test-start-emu",
+          "detail": "Launch emulator (tests)",
+          "command": "make",
+          "args": ["test-start-emu"],
+          "options": {
+            "env": {
+              "TIBRIDGE_PORT": "${input:port}"
+            }
+          },
+
+          "type": "shell"
+      },
+      {
           "label": "TI Debug Bridge",
           "command": "make",
           "args": ["bridge"],
@@ -60,6 +86,20 @@
                 "kind": "build",
                 "isDefault": true
             },
+            "problemMatcher": [
+                {
+                    "fileLocation": "absolute",
+                    "pattern": [
+                        {
+                            "regexp": "^(.*?)::(.*?)::(\\d+)::(\\d+):(\\d+):\\s+(error|warning):\\s+(.*?)$",
+                            "file": 1,
+                            "line": 5,
+                            "message": 7,
+                            "severity": 0,
+                        }
+                    ]
+                }
+            ],
 
             "command": "make",
             "args": [],

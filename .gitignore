@@ -4,3 +4,6 @@ build/
 *.map
 *.def
 *.8xv
+*.rom
+*.orig
+*.rej

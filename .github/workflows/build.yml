@@ -1,0 +1,32 @@
+name: Check 🔍
+
+on:
+  pull_request:
+    branches:
+        - master
+  workflow_dispatch:
+      inputs:
+          ref:
+              description: The git refspec to checkout
+              required: true
+              default: 'master'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  linux-build:
+    name: 🐧
+    runs-on: ubuntu-20.04
+    container: "z88dk@sha256:9c95ad8ae5c469659c343948ec86c944be529af7eae466b50653378b12d594ce"
+
+    steps:
+    - uses: actions/checkout@v3
+      name: 🔄 Checkout Code
+      with:
+          ref: "${{ github.events.inputs.ref }}"
+          submodules: recursive
+    - run: git config --global --add safe.directory /__w/tyzzy/tyzzy
+      name: 🔓 Mark repo directory as safe
+    - run: make

@@ -2,7 +2,11 @@
     "configurations": [
         {
             "name": "default",
-            "includePath": ["/snap/z88dk/current/share/z88dk/include"],
+            "includePath": [
+                "~/z88dk/include",
+                "/snap/z88dk/current/share/z88dk/include",
+                "C:/z88dk/include"
+            ],
             "intelliSenseMode": "linux-gcc-x64",
             "compilerPath": "/snap/bin/z88dk.zcc",
             "cStandard": "gnu17",
@@ -13,7 +17,9 @@
                 "__naked=",
                 "__asm=",
                 "__endasm=",
+                "__smallc=",
                 "__z88dk_fastcall=",
+                "__z88dk_callee=",
             ]
         }
     ],

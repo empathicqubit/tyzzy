@@ -18,6 +18,44 @@
         "typeinfo": "c",
         "lib.h": "c",
         "gdb.h": "c",
-        "utils.h": "c"
-    }
+        "utils.h": "c",
+        "memory.h": "c",
+        "stdio.h": "c",
+        "malloc.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "stdint.h": "c",
+        "time.h": "c",
+        "ti8x.h": "c",
+        "testutil.h": "c",
+        "fcntl.h": "c",
+        "unistd.h": "c"
+    },
+    "cmake.configureOnOpen": false,
+    "workbench.colorCustomizations": {
+        "activityBar.inactiveForeground": "#ccd1bd",
+        "activityBar.background": "#000",
+        "activityBar.activeBackground": "#273c5dff",
+        "activityBar.foreground": "#22a699",
+        "activityBarBadge.background": "#ffb16f",
+        "activityBarBadge.foreground": "#000"
+    },
+    "editor.rulers": [
+        {
+            "column": 16,
+        },
+        {
+            "column": 32,
+        },
+        {
+            "column": 48,
+        },
+        {
+            "column": 64,
+        },
+        {
+            "column": 80,
+            "color": "#900",
+        }
+    ]
 }

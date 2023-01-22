@@ -1,3 +1,13 @@
+#include <ti.h>
+
+// Needed for automatic startup in emulator
+__asm
+	INCLUDE "Ti83p.def"
+
+    DEFW OP1
+    DEFW OP2
+__endasm;
+
 #ifdef GDB_ENABLED
 
 #include <stdbool.h>
@@ -8,10 +18,6 @@
 #include "debug-impl.h"
 
 //#define DBG_SIMULATED
-
-__asm
-	INCLUDE "Ti83p.def"
-__endasm;
 
 #ifdef DBG_SIMULATED
 #define SCREENSIZE 16*8
@@ -161,5 +167,6 @@ void debug_init (void) {
 }
 #else /* GDB_ENABLED */
 void debug_init (void) {}
-void debug_swbreak(void) {}
+void gdb_swbreak(void) {}
+void gdb_print(const char *str) {}
 #endif /* GDB_ENABLED */
