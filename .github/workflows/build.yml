@@ -19,7 +19,7 @@ jobs:
   linux-build:
     name: 🐧
     runs-on: ubuntu-20.04
-    container: "z88dk@sha256:9c95ad8ae5c469659c343948ec86c944be529af7eae466b50653378b12d594ce"
+    container: "z88dk/z88dk@sha256:9c95ad8ae5c469659c343948ec86c944be529af7eae466b50653378b12d594ce"
 
     steps:
     - uses: actions/checkout@v3
