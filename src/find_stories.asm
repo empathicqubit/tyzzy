@@ -106,7 +106,7 @@ SECTION code_compiler
 
 .checkDoubleZero
     ld a,(ix+1)
-    cp '0'
+    cp 'A'
     jr nz,forStories
     cp (ix+2) ; other byte is equal
     jr nz,forStories
@@ -199,12 +199,12 @@ SECTION code_compiler
     inc hl
 
     ld a,(hl)
-    sub '0'
-    call mult10
+    sub 'A'
+    call mult26
     dec hl
 
     add (hl)
-    sub '0'
+    sub 'A'
 
     jr finishedNameOrdering
 

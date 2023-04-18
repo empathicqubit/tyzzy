@@ -12,7 +12,7 @@ while [ ! -z "$1" ] ; do
     INPUT_NAME="${INPUT_NAME^^}"
 
     mkdir -p "$INPUT_DIR"
-    split -b$((0x1f00)) -d "$INPUT_FILE" "$INPUT_DIR/$INPUT_NAME"
+    split -b$((0x1f00)) "$INPUT_FILE" "$INPUT_DIR/$INPUT_NAME"
     for each in "$INPUT_DIR/$INPUT_NAME"?? ; do
         "$DIR/bashpac8x.sh" --variable --archive <( cat <(echo -ne "**TYZZY*") "$each" ) "$(basename "$each")" > "$each.8xv"
         rm "$each"

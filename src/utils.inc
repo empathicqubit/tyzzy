@@ -49,6 +49,7 @@ macro HLTOLH
 endm
 
 EXTERN mult10
+EXTERN mult26
 EXTERN newLine
 EXTERN copyNameToForward
 EXTERN copyReverseToForward

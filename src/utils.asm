@@ -1,5 +1,6 @@
 MODULE _main
 PUBLIC mult10
+PUBLIC mult26
 PUBLIC newLine
 PUBLIC copyNameToForward
 PUBLIC getKeyOrQuit
@@ -22,11 +23,23 @@ SECTION code_compiler
 .mult10
     or a
     ret z
-    add a ; *2
     ld b,a
+    add a ; *2
     add a ; *4
     add a ; *8
+    add b ; *9
     add b ; *10
+    ret
+
+; destroys a,b
+.mult26
+    or a
+    ret z
+    call mult10
+    add b
+    add b
+    add b ; *13
+    add a ; *26
     ret
 
 .scrClr

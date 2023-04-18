@@ -66,11 +66,11 @@ SECTION code_compiler
 
     ; convert name bytes to value
     ld a,ixh
-    sub '0'
-    call mult10
+    sub 'A'
+    call mult26
 
     add ixl
-    sub '0' - 1
+    sub 'A' - 1
 
     ld iy,_IY_TABLE
     ei
