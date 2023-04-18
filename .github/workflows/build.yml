@@ -35,6 +35,7 @@ jobs:
     - run: git config --global --add safe.directory /__w/tyzzy/tyzzy
       name: 🔓 Mark repo directory as safe
     - run: make
+    - run: make zcode
     - uses: actions/upload-artifact@v3
       with:
           name: program.8xp
