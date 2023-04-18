@@ -22,6 +22,7 @@ jobs:
     container: "z88dk/z88dk@sha256:9c95ad8ae5c469659c343948ec86c944be529af7eae466b50653378b12d594ce"
 
     steps:
+    - run: apt-get install git
     - uses: actions/checkout@v3
       name: 🔄 Checkout Code
       with:
