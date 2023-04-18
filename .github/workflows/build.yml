@@ -35,3 +35,12 @@ jobs:
     - run: git config --global --add safe.directory /__w/tyzzy/tyzzy
       name: 🔓 Mark repo directory as safe
     - run: make
+    - uses: actions/upload-artifact@v3
+      with:
+          name: program.8xp
+          path: build/program.8xp
+    - uses: actions/upload-artifact@v3
+      with:
+          name: zcodes.tgz
+          path: build/zcode/**/*
+
