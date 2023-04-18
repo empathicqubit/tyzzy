@@ -123,19 +123,19 @@ zcode-install: $(TIKEYS) $(COMPILEZCODE) $(TILPCFG)
 zcode: $(COMPILEZCODE)
 
 $(ZCODE)/hhgg/HHGG00.8xv: $(ZCODE)/hhgg.z3
-	./storypac8x.sh "$<"
+	bash ./storypac8x.sh "$<"
 
 $(ZCODE)/hhgg.z3: | $(ZCODE)
 	curl -Lqo "$@" https://raw.githubusercontent.com/BYU-PCCL/z-machine-games/master/jericho-game-suite/hhgg.z3
 
 $(ZCODE)/ziltest/ZILTES00.8xv: $(ZCODE)/ziltest.z3
-	./storypac8x.sh "$<"
+	bash ./storypac8x.sh "$<"
 
 $(ZCODE)/ziltest.z3: | $(ZCODE)
 	curl -Lqo "$@" https://raw.githubusercontent.com/jeffnyman/zifmia/master/zil/zil_test.z3
 
 $(ZCODE)/cloak/CLOAK00.8xv: $(ZCODE)/cloak.z3
-	./storypac8x.sh "$<"
+	bash ./storypac8x.sh "$<"
 
 $(ZCODE)/cloak.z3: | $(ZCODE)
 	curl -Lqo "$@" https://raw.githubusercontent.com/jeffnyman/zifmia/master/zil/cloak.z3
