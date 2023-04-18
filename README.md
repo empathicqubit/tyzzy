@@ -5,3 +5,5 @@ A TI 83/84 Plus Z-Machine Interpreter. Based on [the TI C project template](http
 It doesn't work yet! The game (HHGG) is set up and it prints text and stops at the first prompt.
 
 ![Preview](./preview.png)
+
+Trust me. :) It's all there, it just renders weirdly.
