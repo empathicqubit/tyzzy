@@ -56,7 +56,7 @@ INPUT_FILENAME="$(basename "${INPUT_FILE%.*}")"
 
 BINDATA="$(cat "$INPUT_FILE" | xxd -ps | tr -d '\n')"
 
-BINSIZE=$(($(echo -ne "$BINDATA" | wc --bytes) / 2))
+BINSIZE=$(($(echo -ne "$BINDATA" | wc -c) / 2))
 BINSIZE_LITTLE=$(make_little $BINSIZE)
 
 NAME="$(printf "%.8s" "${2:-${INPUT_FILENAME}}")"
