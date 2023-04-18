@@ -1,6 +1,10 @@
 name: Check 🔍
 
 on:
+# FIXME
+  push:
+    branches:
+        - master
   pull_request:
     branches:
         - master
