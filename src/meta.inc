@@ -10,6 +10,10 @@ EXTERN stackNameLength
 EXTERN stackNameOP1
 EXTERN stackName
 
+EXTERN screenBufferNameLength
+EXTERN screenBufferNameOP1
+EXTERN screenBufferName
+
 EXTERN headerBegin
 EXTERN headerEnd
 EXTERN headerForwardBegin

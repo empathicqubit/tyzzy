@@ -8,6 +8,7 @@ EXTERN storyReadbytes
 
 INCLUDE "../../src/utils.inc"
 INCLUDE "../../src/meta.inc"
+INCLUDE "../../src/screen_buffer.inc"
 INCLUDE "Ti83p.def"
 
 DEFC ztextBufferWordCount = 32
@@ -31,7 +32,7 @@ SECTION code_compiler
 ; Inputs HL = Pointer to the ZSCII code to print
 .printZCharacter
     ; FIXME incomplete
-    jp vWrapMap
+    jp screenBufferWrite
 
 ; Print at most n words from Z String
 ; Inputs DEHL = Z-address of string
@@ -184,8 +185,8 @@ SECTION code_compiler
     jr z,shiftTwo
     jr noShift
 .printNewline
-    call newLine
-    jr donePrintPutChar
+    ld hl,newlineChar
+    jr doPrintPutChar
 .abbreviation
     ld (abbrevChar),a
     jr skipPrintPutMap
@@ -212,9 +213,10 @@ SECTION code_compiler
     ld c,a
     add hl,bc
 
+.doPrintPutChar
     push de
     push ix
-    call vWrapMap
+    call screenBufferWrite
 .popPrintPutMap
     pop ix
     pop de
@@ -247,6 +249,9 @@ SECTION code_compiler
     ret
 
 SECTION rodata_compiler
+newlineChar:
+    defb 0x0a
+
 alphaTable:
     defm ' ',1,2,3,4,5,"abcdefghijklmnopqrstuvwxyz"
     defm ' ',1,2,3,4,5,"ABCDEFGHIJKLMNOPQRSTUVWXYZ"

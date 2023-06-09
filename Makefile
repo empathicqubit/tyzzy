@@ -42,8 +42,8 @@ LIBCFLAGS?=$(BASE_CFLAGS_RELEASE)
 
 BUILD=build
 ZCODE=$(BUILD)/zcode
-# For building. Just the 00s
-COMPILEZCODE=$(ZCODE)/hhgg/HHGG00.8xv $(ZCODE)/cloak/CLOAK00.8xv $(ZCODE)/ziltest/ZILTES00.8xv
+# For building. Just the aas
+COMPILEZCODE=$(ZCODE)/hhgg/HHGGaa.8xv $(ZCODE)/cloak/CLOAKaa.8xv $(ZCODE)/ziltest/ZILTESaa.8xv
 # For testing. All files we want sent to the calculator
 LOADZCODE=$(wildcard $(ZCODE)/hhgg/*.8xv) # These games are non-standard. Contain opcodes that don't work with ZDebug: $(wildcard $(ZCODE)/cloak/*.8xv) $(wildcard $(ZCODE)/ziltest/*.8xv)
 
@@ -93,7 +93,7 @@ install-noshell: $(NOSHELL)
 	$(TILP) "$<"
 
 debug-emu: $(BUILD)/program.map start-emu ./gdb_startup.txt
-	sleep 7
+	sleep 8
 	"$(GDBPROG)" -h 127.0.0.1 -p "$${TIBRIDGE_PORT:-8998}" -x "$<" --script ./gdb_startup.txt
 
 $(BUILD)/program.map: $(BUILD)/program.8xp
@@ -122,19 +122,19 @@ zcode-install: $(TIKEYS) $(COMPILEZCODE) $(TILPCFG)
 
 zcode: $(COMPILEZCODE)
 
-$(ZCODE)/hhgg/HHGG00.8xv: $(ZCODE)/hhgg.z3
+$(ZCODE)/hhgg/HHGGaa.8xv: $(ZCODE)/hhgg.z3
 	bash ./storypac8x.sh "$<"
 
 $(ZCODE)/hhgg.z3: | $(ZCODE)
 	curl -Lqo "$@" https://raw.githubusercontent.com/BYU-PCCL/z-machine-games/master/jericho-game-suite/hhgg.z3
 
-$(ZCODE)/ziltest/ZILTES00.8xv: $(ZCODE)/ziltest.z3
+$(ZCODE)/ziltest/ZILTESaa.8xv: $(ZCODE)/ziltest.z3
 	bash ./storypac8x.sh "$<"
 
 $(ZCODE)/ziltest.z3: | $(ZCODE)
 	curl -Lqo "$@" https://raw.githubusercontent.com/jeffnyman/zifmia/master/zil/zil_test.z3
 
-$(ZCODE)/cloak/CLOAK00.8xv: $(ZCODE)/cloak.z3
+$(ZCODE)/cloak/CLOAKaa.8xv: $(ZCODE)/cloak.z3
 	bash ./storypac8x.sh "$<"
 
 $(ZCODE)/cloak.z3: | $(ZCODE)
@@ -263,12 +263,12 @@ $(GDB_PATH): submodules
 
 submodules:
 
-vbshared: $(HOME)/vbshared/tyzzy.8xp $(HOME)/vbshared/ZILTES00.8xv
+vbshared: $(HOME)/vbshared/tyzzy.8xp $(HOME)/vbshared/ZILTESaa.8xv
 
 $(HOME)/vbshared/tyzzy.8xp: $(BUILD)/program.8xp
 	cp "$<" "$@"
 
-$(HOME)/vbshared/ZILTES00.8xv: $(COMPILEZCODE)
+$(HOME)/vbshared/ZILTESaa.8xv: $(COMPILEZCODE)
 	for each in $(wildcard $(ZCODE)/*/*.8xv) ; do
 		cp "$$each" "$(HOME)/vbshared/$$(basename "$$each")"
 	done

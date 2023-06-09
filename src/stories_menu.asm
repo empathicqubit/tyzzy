@@ -20,6 +20,7 @@ SECTION code_compiler
     call scrClr
 
     ld hl,chooseAStory
+    xor a
     call vWrapS
 
     call newLine

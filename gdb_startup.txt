@@ -1,5 +1,6 @@
-tracecmds x /1 opcodeNumber ; x /2 storyPC ; x /10 instructionBuffer ; x /1 zOPcount ; x /16 zOPs ; x /2 stackOffset ; x /2 stackTopOffset ; x /2 dynMemOffset ; x /2 headerGlobalStart ; x /2 headerObjectStart ; x /1 zVARcount ; x /30 zVARs ; x /2 headerStaticStart ; reg
+tracecmds x /1 opcodeNumber ; x /2 storyPC ; x /10 instructionBuffer ; x /1 zOPcount ; x /16 zOPs ; x /2 stackOffset ; x /2 stackTopOffset ; x /2 dynMemOffset ; x /2 headerGlobalStart ; x /2 headerObjectStart ; x /1 zVARcount ; x /30 zVARs ; x /2 headerStaticStart ; x /2 screenBufferView ; reg
 trace on
 break unrecognizedInstruction
 break failProcessInstruction
+break screenBufferMoveViewUp
 cont

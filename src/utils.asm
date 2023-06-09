@@ -1,7 +1,10 @@
 MODULE _main
 PUBLIC mult10
 PUBLIC mult26
+
+PUBLIC oldLine
 PUBLIC newLine
+
 PUBLIC copyNameToForward
 PUBLIC getKeyOrQuit
 PUBLIC quitSP
@@ -10,6 +13,10 @@ PUBLIC vWrapS
 PUBLIC vWrapN
 PUBLIC vWrapMap
 PUBLIC copyReverseToForward
+
+PUBLIC rstCur
+PUBLIC rstCurBottom
+PUBLIC rstCurCol
 
 INCLUDE "Ti83p.def"
 
@@ -42,6 +49,8 @@ SECTION code_compiler
     add a ; *26
     ret
 
+.lineClr
+
 .scrClr
     rst 0x28
     defw _ClrScrn
@@ -55,20 +64,41 @@ SECTION code_compiler
     ld (penRow),a
     ret
 
+.rstCurCol
+    xor a
+    ld (penCol),a
+    ret
+
+.rstCurBottom
+    xor a
+    ld (penCol),a
+    ld a,64-6
+    ld (penRow),a
+    ret
+
 ; inputs HL = pointer to null-terminated string
+;        A = max number of times to wrap
+; Returns C = character didn't fit
 .vWrapS
+    ld c,a
+.vWrapSNext
     ld a,(hl)
     or a
+    ret z
+    cp 0x0a
     ret z
 
     rst 0x28
     defw _VPutMap
     jr nc,charFits
+.vWrappedS
+    dec c
+    ret z
     call newLine
-    jr vWrapS
+    jr vWrapSNext
 .charFits
     inc hl
-    jr vWrapS
+    jr vWrapSNext
 
 ; Wrap a single character
 ; Inputs HL = pointer to the character to put on the screen
@@ -94,6 +124,14 @@ SECTION code_compiler
     ld a,8
     rst 0x28
     defw _DispOP1A
+    ret
+
+.oldLine
+    xor a
+    ld (penCol),a
+    ld a,(penRow)
+    sub 6
+    ld (penRow),a
     ret
 
 .newLine

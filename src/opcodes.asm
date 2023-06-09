@@ -47,6 +47,7 @@ INCLUDE "../../src/state.inc"
 INCLUDE "../../src/stack.inc"
 INCLUDE "../../src/utils.inc"
 INCLUDE "../../src/meta.inc"
+INCLUDE "../../src/screen_buffer.inc"
 INCLUDE "Ti83p.def"
 
 SECTION bss_compiler
@@ -62,11 +63,12 @@ defc childObject = attributeByteCount+2
 defc propertiesPointer = attributeByteCount+3
 
 .op_sread
+    call screenBufferDraw
     call getKeyOrQuit
-    sub kCapA-0x41 ; distance between keycodes and ascii codes
-    ld bc,(sreadLine)
-    ld (hl),a
-    call vWrapMap
+    cp 0x03 ; up key
+    call z,screenBufferMoveViewUp
+    cp 0x04 ; down key
+    call z,screenBufferMoveViewDown
     jr op_sread
 
 .op_get_prop_addr
@@ -391,7 +393,7 @@ defc propertiesPointer = attributeByteCount+3
 
 .op_print_num
     ld hl,(zOP1)
-    jp vWrapN
+    jp screenBufferWriteNumber
 
 .op_print
     ld de,0

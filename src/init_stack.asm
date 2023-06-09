@@ -62,6 +62,7 @@ SECTION code_compiler
     jr z,stackCreated
 
     ld hl,stackArchived
+    xor a
     call vWrapS
 
     ; Reset flags before return

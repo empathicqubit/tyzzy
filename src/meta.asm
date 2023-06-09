@@ -9,6 +9,10 @@ PUBLIC stackNameLength
 PUBLIC stackNameOP1
 PUBLIC stackName
 
+PUBLIC screenBufferNameLength
+PUBLIC screenBufferNameOP1
+PUBLIC screenBufferName
+
 PUBLIC headerBegin
 PUBLIC headerEnd
 PUBLIC headerForwardBegin
@@ -35,6 +39,13 @@ stackNameLength:
 stackNameOP1:
     defb AppVarObj
 stackName:
+    defs 9
+
+screenBufferNameLength:
+    defb 0
+screenBufferNameOP1:
+    defb AppVarObj
+screenBufferName:
     defs 9
 
 SECTION bss_compiler

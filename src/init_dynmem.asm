@@ -66,6 +66,7 @@ SECTION code_compiler
     jr z,dynmemCreated
 
     ld hl,dynMemArchived
+    xor a
     call vWrapS
 
     ; Reset flags before return

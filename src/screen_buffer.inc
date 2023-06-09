@@ -1,0 +1,9 @@
+EXTERN screenBufferOffset
+EXTERN screenBufferCursor
+EXTERN screenBufferView
+EXTERN screenBufferSize
+EXTERN screenBufferWrite
+EXTERN screenBufferWriteNumber
+EXTERN screenBufferDraw
+EXTERN screenBufferMoveViewUp
+EXTERN screenBufferMoveViewDown

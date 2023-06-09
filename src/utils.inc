@@ -50,7 +50,10 @@ endm
 
 EXTERN mult10
 EXTERN mult26
+
+EXTERN oldLine
 EXTERN newLine
+
 EXTERN copyNameToForward
 EXTERN copyReverseToForward
 EXTERN getKeyOrQuit
@@ -59,3 +62,7 @@ EXTERN scrClr
 EXTERN vWrapS
 EXTERN vWrapN
 EXTERN vWrapMap
+
+EXTERN rstCur
+EXTERN rstCurCol
+EXTERN rstCurBottom

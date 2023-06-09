@@ -7,6 +7,7 @@ EXTERN confirmSlices
 EXTERN storyReadbytes
 EXTERN initDynmem
 EXTERN initStack
+EXTERN initScreenBuffer
 EXTERN processInstruction
 
 INCLUDE "Ti83p.def"
@@ -59,6 +60,7 @@ SECTION code_compiler
     jr z,succeedSlices
 .failedSlices
     ld hl,sliceMissing
+    xor a
     call vWrapS
 
     call getKeyOrQuit
@@ -66,6 +68,11 @@ SECTION code_compiler
 
 .succeedSlices
     ; We have everything we need. Now initialize the VM
+
+    ; Create and initialize the screen memory AppVar
+    call initScreenBuffer
+    jr nz,doneMain
+.screenBufferInitted
 
     ; Create and initialize the dynamic memory AppVar
     call initDynmem
@@ -88,6 +95,7 @@ SECTION code_compiler
     call newLine
 
     ld hl,stopped
+    xor a
     call vWrapS
 
     ld hl,(storyPC)
