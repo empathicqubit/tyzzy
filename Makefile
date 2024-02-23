@@ -7,7 +7,7 @@ endif
 
 # This should be uppercase if you don't want things to break
 PROGNAME?=TYZZY
-PLATFORM?=ti8x
+PLATFORM?=ti83p
 SUBTYPE?=mirage
 
 # Comment this out to disable debugging completely
@@ -180,7 +180,7 @@ $$(BUILD)/$(1).startup.key: ./startup.key
 	cp "$$<" "$$@"
 
 $$(BUILD)/$(1).bip: $(4) src/pragma.h
-	"$$(LD)" +ti8x -subtype=$(2) $$(LDFLAGS) -o "$$@" $$(filter %.o,$$^)
+	"$$(LD)" +$(PLATFORM) -subtype=$(2) $$(LDFLAGS) -o "$$@" $$(filter %.o,$$^)
 endef
 
 $(eval $(call 8xp_build,program,$(SUBTYPE),$(PROGNAME),$(SRC_OBJECT_FILES) $(LIB_OBJECT_FILES)))
