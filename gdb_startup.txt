@@ -13,10 +13,9 @@ define hook-stop
     x /30 zVARs
     x /2 headerStaticStart
     x /2 screenBufferView
+    x /2 screenBufferOffset
     reg
 end
 trace on
-break unrecognizedInstruction
-break failProcessInstruction
-break screenBufferMoveViewUp
+break vWrapS
 cont

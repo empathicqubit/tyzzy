@@ -80,9 +80,9 @@ SECTION code_compiler
 
 .screenBufferZeroMemory
     ; Zero memory
-    ; Set first byte to zero
+    ; Set first byte to space
     ex de,hl
-    xor a
+    ld a,' '
     ld (hl),a
     ld de,hl
 

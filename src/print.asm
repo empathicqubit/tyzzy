@@ -185,6 +185,11 @@ SECTION code_compiler
     jr z,shiftTwo
     jr noShift
 .printNewline
+    ; check to make sure we're in the right charset
+    ld a,(shiftValue)
+    cp 32*2
+    ld a,7
+    jr nz,notSpecial
     ld hl,newlineChar
     jr doPrintPutChar
 .abbreviation

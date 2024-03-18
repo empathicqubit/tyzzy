@@ -90,7 +90,7 @@ SECTION code_compiler
 
     ld a,0x0a
     cpdr
-    ret po
+    jp po,screenBufferDrawWrap
 
     inc hl
     inc hl
@@ -138,12 +138,18 @@ SECTION code_compiler
     inc ixl
     pop bc
     jr screenBufferDrawNext
+.screenBufferDrawWrap
+    ld hl,(screenBufferOffset)
+    ld de,screenBufferSize-1
+    add hl,de
+    jr screenBufferDrawNext
 
 ; Shifts the screen up one page
 .screenBufferMoveViewUp
     ld hl,(screenBufferView)
-    push hl
     ld de,(screenBufferOffset)
+.screenBufferMoveViewUpAgain
+    push hl
     or a
     sbc hl,de
     ld bc,hl
@@ -151,10 +157,15 @@ SECTION code_compiler
 
     ld a,0x0a
     cpdr
-    ret po
+    jp po,screenBufferMoveUpWrap
 
     ld (screenBufferView),hl
     ret
+
+.screenBufferMoveUpWrap
+    ld hl,screenBufferSize
+    add hl,de
+    jr screenBufferMoveViewUpAgain
 
 ; Shifts the screen down one page
 .screenBufferMoveViewDown
